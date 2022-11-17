@@ -24,6 +24,8 @@ D2の値が60になるとB2に+1しB2の値は0になります。<br>
 パスワードは**Unlocking**です。
 
 ### 参考
-<a href=https://liclog.net/sleep-function-vba-macro-catia-v5/>VBAで指定した秒数だけ処理を止める方法【Sleep関数(API)】</a>（閲覧日2022-11-15）
+<a href=https://liclog.net/sleep-function-vba-macro-catia-v5/>VBAで指定した秒数だけ処理を止める方法【Sleep関数(API)】</a>（閲覧日2022-11-15）<br>
 
 <a href=https://www.sejuku.net/blog/69349>【ExcelVBA入門】DoEventsを使って処理を途中で止める方法を徹底解説！</a>（閲覧日2022-11-15）<br>
+
+<a href=https://atmarkit.itmedia.co.jp/ait/articles/0709/28/news153.html>Excelシートの特定のセルを編集禁止にする</a>（閲覧日2022-11-17）
