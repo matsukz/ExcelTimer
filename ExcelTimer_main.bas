@@ -1,18 +1,18 @@
-Attribute VB_Name = "ExcelTimer_main"
 #If Win64 Then
     Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As LongPtr)
 #Else
     Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 #End If
 
-Dim Count As Long 'Timerƒ‹[ƒv‚ÌŠÇ—
+Dim Count As Long 'Timerãƒ«ãƒ¼ãƒ—ã®ç®¡ç†
 Dim Flashing As Byte
-Dim StopSignal As Byte '0‚È‚çTimer’â~A1‚È‚çƒŠƒZƒbƒg
-Dim Button As Byte '1‚É‚È‚é‚ÆTimerƒ‹[ƒv‚ª’â~‚·‚é
-Dim ResetSignal As Byte
-Dim CountProhibition As Byte 'è“®ƒJƒEƒ“ƒg‚Ì‹Ö~
+Dim StopSignal As Byte '0ãªã‚‰Timeråœæ­¢ã€1ãªã‚‰ãƒªã‚»ãƒƒãƒˆ
+Dim Button As Byte '1ã«ãªã‚‹ã¨Timerãƒ«ãƒ¼ãƒ—ãŒåœæ­¢ã™ã‚‹
+Dim CountProhibition As Byte 'æ‰‹å‹•ã‚«ã‚¦ãƒ³ãƒˆã®ç¦æ­¢
 
 Sub Timer()
+
+    Range("A1").Select
 
     Button = 0
     StopSignal = 0
@@ -23,31 +23,29 @@ Sub Timer()
         DoEvents
             
             If Button = 1 Then
-                Range("J1") = ""
+                Range("G1") = ""
                 StopSignal = 1
                 CountProhibition = 0
                 Exit Sub
                 
             End If
             
-            Range("J1") = "ƒJƒEƒ“ƒg’†EEE"
-            
-            If Range("D2") < 60 Then
-            
-                Sleep 1000
-                
-                Range("D2") = Range("D2") + 1
-                
-                Range("J1") = ""
-                
-            ElseIf Range("D2") = 60 Then
+            Range("G1") = "ã‚«ã‚¦ãƒ³ãƒˆä¸­ãƒ»ãƒ»ãƒ»"
+           
+            If Range("D2") = 60 Then
                 
                 Range("B2") = Range("B2") + 1
                 Range("D2") = Range("D2") - Range("D2")
                 
+            ElseIf Range("D2") < 60 Then
+            
+                Sleep 1000
+                Range("D2") = Range("D2") + 1
+                
             Else
             
-                MsgBox "”ÍˆÍƒGƒ‰[", vbCritical, Title:="ERROR"
+                MsgBox "ç¯„å›²ã‚¨ãƒ©ãƒ¼", vbCritical, Title:="ERROR"
+                Exit Sub
                 
             End If
             
@@ -65,6 +63,8 @@ Sub Timer()
 End Sub
 
 Sub eButton()
+
+    Range("A1").Select
 
     If StopSignal = 0 Then
         
@@ -102,21 +102,22 @@ Sub Reset()
 End Sub
 Sub Plus_s()
 
+    Range("A1").Select
+
     If CountProhibition = 0 Then
     
-        If Range("D2") < 59 Then
+        If Range("D2") < 60 Then
         
             Range("D2") = Range("D2") + 1
             
-            
-        ElseIf Range("D2") = 59 Then
+        ElseIf Range("D2") = 60 Then
          
             Range("B2") = Range("B2") + 1
             Range("D2") = Range("D2") - Range("D2")
             
         Else
         
-           MsgBox "”ÍˆÍƒGƒ‰[", vbCritical, Title:="ERROR"
+           MsgBox "ç¯„å›²ã‚¨ãƒ©ãƒ¼", vbCritical, Title:="ERROR"
            
         End If
     
@@ -129,6 +130,8 @@ Sub Plus_s()
 End Sub
 
 Sub Minus_s()
+
+    Range("A1").Select
 
     If CountProhibition = 0 Then
 
@@ -144,7 +147,7 @@ Sub Minus_s()
             Range("D2") = Range("D2") - 1
         
         Else
-            MsgBox "”ÍˆÍƒGƒ‰[", vbCritical, Title:="ERROR"
+            MsgBox "ç¯„å›²ã‚¨ãƒ©ãƒ¼", vbCritical, Title:="ERROR"
         
         End If
     
