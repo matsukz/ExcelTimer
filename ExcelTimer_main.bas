@@ -11,6 +11,7 @@ Dim StopSignal As Byte '0ならTimer停止、1ならリセット
 Dim Button As Byte '1になるとTimerループが停止する
 Dim ResetSignal As Byte
 Dim CountProhibition As Byte '手動カウントの禁止
+'更新日2022-11-22
 
 Sub Timer()
     
