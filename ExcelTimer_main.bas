@@ -1,3 +1,4 @@
+Attribute VB_Name = "ExcelTimer_main"
 #If Win64 Then
     Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As LongPtr)
 #Else
@@ -8,55 +9,54 @@ Dim Count As Long 'Timerループの管理
 Dim Flashing As Byte
 Dim StopSignal As Byte '0ならTimer停止、1ならリセット
 Dim Button As Byte '1になるとTimerループが停止する
+Dim ResetSignal As Byte
 Dim CountProhibition As Byte '手動カウントの禁止
 
 Sub Timer()
-
+    
     Range("A1").Select
 
+    Count = 0
     Button = 0
     StopSignal = 0
     CountProhibition = 1
     
-    For Count = 0 To 9999999
+    For Count = 0 To 9999999 Step 1
     
         DoEvents
             
             If Button = 1 Then
-                Range("G1") = ""
+                Range("J1") = ""
                 StopSignal = 1
                 CountProhibition = 0
                 Exit Sub
                 
             End If
             
-            Range("G1") = "カウント中・・・"
-           
-            If Range("D2") = 60 Then
+            Range("J1") = "カウント中・・・"
+            
+            If Range("D2") < 60 Then
+            
+                Sleep 1000
+                
+                Range("D2") = Range("D2") + 1
+
+                
+            ElseIf Range("D2") = 60 Then
                 
                 Range("B2") = Range("B2") + 1
                 Range("D2") = Range("D2") - Range("D2")
                 
-            ElseIf Range("D2") < 60 Then
-            
-                Sleep 1000
-                Range("D2") = Range("D2") + 1
-                
             Else
             
                 MsgBox "範囲エラー", vbCritical, Title:="ERROR"
-                Exit Sub
                 
             End If
-            
-            Count = Count + 1
             
             If Count = 9999999 Then
-                Count = 0
-                
-            Else
             
-            End If
+                Count = Count - Count
+            Else
             
     Next Count
     
@@ -78,10 +78,11 @@ Sub eButton()
         
     End If
     
-    
 End Sub
 
 Sub Reset()
+
+    Range("A1").Select
 
     If Not Range("B2") = 0 Then
     
@@ -103,14 +104,14 @@ End Sub
 Sub Plus_s()
 
     Range("A1").Select
-
+    
     If CountProhibition = 0 Then
     
-        If Range("D2") < 60 Then
+        If Range("D2") < 59 Then
         
             Range("D2") = Range("D2") + 1
             
-        ElseIf Range("D2") = 60 Then
+        ElseIf Range("D2") = 59 Then
          
             Range("B2") = Range("B2") + 1
             Range("D2") = Range("D2") - Range("D2")
@@ -124,7 +125,7 @@ Sub Plus_s()
         StopSignal = 1
     
     Else
-    
+        
     End If
     
 End Sub
@@ -154,7 +155,7 @@ Sub Minus_s()
         StopSignal = 1
     
     Else
-         
+        
     End If
     
 End Sub
